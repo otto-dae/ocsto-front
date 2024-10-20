@@ -13,7 +13,7 @@ export default function SelectLocation ({locations, store}: {locations: Location
         }}
         selectedKeys={store ? store : "0"}
         onChange={((e) => {
-            if(e.target.value === "") {
+            if(e.target.value === "0" || e.target.value === "") {
                 router.push('/dashboard')
             }
             else{
