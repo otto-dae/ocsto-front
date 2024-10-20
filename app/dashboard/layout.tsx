@@ -2,8 +2,9 @@ import React from "react"
 import Header from "./_components/header";
 import SideBar from "./_components/_sidebar/sidebar";
 
-export default function layoutDashboard({children,}: Readonly<{
+export default function layoutDashboard({children, count}: Readonly<{
     children: React.ReactNode;
+    count: React.ReactNode;
 }>) {
     return(
         <div className="w-screen h-screen bg-orange-50">
@@ -12,6 +13,7 @@ export default function layoutDashboard({children,}: Readonly<{
             <div className="flex flex-col">
                 <SideBar/>
                 {children}
+                {count}
             </div>
         </div>
     )

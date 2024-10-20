@@ -13,7 +13,7 @@ export default function SignUpPage(){
 
             </div>
             <Button color="primary">Registrarse</Button>
-            <p>do you an account?<Link href={"/login"}>LogIn</Link></p>
+            <p>do you have an account?<Link href={"/login"}>LogIn</Link></p>
        </div>
 
     
