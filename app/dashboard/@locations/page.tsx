@@ -3,6 +3,7 @@ import { Location } from "c:/Users/Koto/ocsto-front/entities"
 import axios from "axios";
 import { cookies } from "next/headers";
 import SelectLocation from "./_components/SelectLocation";
+import LocationCard from "./_components/locationCard";
 
 const LocationsPage = async ({searchParams}: {searchParams: { [key: string]: string | string[] | undefined }})=> {
     const userCookies = cookies();
@@ -27,16 +28,16 @@ const LocationsPage = async ({searchParams}: {searchParams: { [key: string]: str
     ]
 
 
-    return <div className="w-5/12">
+    return <div className="w-7/12">
 
         <div className="w-full h-90vh flex flex-col items-center">
             <div className="w-1/2 my-10">
-
+            <SelectLocation locations={data} store={searchParams?.store}/>
             </div>
-        <SelectLocation locations={data} store={searchParams?.store}/>
-
+            <div className="w-3/12">
+                <LocationCard store={searchParams.store}/>
+            </div>
         </div>
-
     </div>
 }
 export default LocationsPage;
