@@ -4,7 +4,7 @@ import { API_URL } from "@/constants";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function  LogInPage() {
