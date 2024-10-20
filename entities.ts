@@ -14,7 +14,7 @@ export interface Employee{
     employeeLastName:  string;
     employeePhoneNumber: string;
     employeeEmail: string;
-    employeePhotoUrl: string;
+   // employeePhotoUrl: string;
     location: Location;
     // user:User;
 }
