@@ -7,19 +7,25 @@ import SelectLocation from "./_components/SelectLocation";
 const LocationsPage = async ({searchParams}: {searchParams: { [key: string]: string | string[] | undefined }})=> {
     const userCookies = cookies();
     const token = userCookies.get(TOKEN_NAME)?.value
-    const {data} = await axios.get<Location[]>("http:/127.0.0.1:4000/locations",{
+    let {data} = await axios.get<Location[]>("http:/127.0.0.1:4000/locations",{
         headers:{
             Authorization: `Bearer ${token})`,        
         },
 
     },)
 
-    data.push({
+    data.push()
+    
+    data = [    {
         locationId: 0,
         locationName: "No name",
         locationLatLng: [0,0],
-        locationAddress: "No address"
-    })
+        locationAddress: "No address"},
+        ... data
+    
+
+    ]
+
 
     return <div className="w-5/12">
 
