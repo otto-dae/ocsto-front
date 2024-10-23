@@ -1,10 +1,17 @@
 'use server';
 
+import { API_URL, TOKEN_NAME } from "@/constants";
+import axios from "axios";
+import { cookies } from "next/headers";
+
 
 export async function createLocation(formData: FormData){
+
+const token = cookies().get(TOKEN_NAME)?.value; 
+    if(!token) return null
     let location: any = {};
     let locationLatLng = [0, 0]
-    for (const key of formData.keys()){
+    for (const key of formData.keys()){ //wtf
         const value = formData.get(key);
 
         if(value){
@@ -20,4 +27,13 @@ export async function createLocation(formData: FormData){
         }
     }
     location.locationLatLng = locationLatLng;
+    axios.post(`${API_URL}/locations`,{
+        ... location
+    },
+{
+    headers:
+    {
+        Authorization: `Bearer ${TOKEN_NAME}`
+    }
+})
 }

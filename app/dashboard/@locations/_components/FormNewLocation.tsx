@@ -8,7 +8,12 @@ import SelectManager from "./selectManager";
  export default async function FormNewLocation(){
 
     const token = cookies().get(TOKEN_NAME)?.value
-    const {data} = await axios.get<Location>(`${API_URL}/managers`,{
+    const responseManagers = await axios.get(`${API_URL}/managers`,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    const responseLocations = await axios.get(`${API_URL}/locations`,{
         headers:{
             Authorization: `Bearer ${token}`
         }
@@ -20,8 +25,8 @@ import SelectManager from "./selectManager";
             <Input label="Store Address" name="locationAddress" />
             <Input label="Store latitud" name="locationLat" />
             <Input label="Store longitud" name="locationLng" />
-            <SelectManager managers={data}/>
-            <button>upload</button>
+            <SelectManager managers={responseManagers.data} locations={responseLocations.data}/>
+            <button type="submit">upload</button>
         </form>
     )
  }
