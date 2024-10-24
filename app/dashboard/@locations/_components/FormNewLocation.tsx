@@ -5,8 +5,9 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import SelectManager from "./selectManager";
 
- export default async function FormNewLocation(){
+ export default async function FormNewLocation({store}: {store: string| string[] | undefined}){
 
+    if(store) return null
     const token = cookies().get(TOKEN_NAME)?.value
     const responseManagers = await axios.get(`${API_URL}/managers`,{
         headers:{
@@ -20,7 +21,8 @@ import SelectManager from "./selectManager";
     })
 
     return (
-        <form action={createLocation}>
+        <form action={createLocation} className="bg-orange-400 py-2 px-4 flex flex-col gap-6 w-full">
+            <h1 className="text-xl text-white text-center"></h1>
             <Input label="Store Name" name="locatioName" />
             <Input label="Store Address" name="locationAddress" />
             <Input label="Store latitud" name="locationLat" />

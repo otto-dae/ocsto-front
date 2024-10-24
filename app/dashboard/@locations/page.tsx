@@ -5,16 +5,17 @@ import { cookies } from "next/headers";
 import SelectLocation from "./_components/SelectLocation";
 import LocationCard from "./_components/locationCard";
 import FormNewLocation from "./_components/FormNewLocation";
+import DeleteLocationButton from "./_components/DeleteLocationButton";
+import { AuthHeaders } from "@/helpers/authHelper";
 
-const LocationsPage = async ({searchParams}: {searchParams: { [key: string]: string | string[] | undefined }})=> {
-    const userCookies = cookies();
-    const token = userCookies.get(TOKEN_NAME)?.value
+const LocationsPage = async ({searchParams,}: {searchParams: { [key: string]: string | string[] | undefined };})=> {
+
     let {data} = await axios.get<Location[]>
     (`${API_URL}/locations`,
         
         {
         headers:{
-            Authorization: `Bearer ${token})`,        
+            ... AuthHeaders()
         },
 
     },)
@@ -42,7 +43,11 @@ const LocationsPage = async ({searchParams}: {searchParams: { [key: string]: str
                 <LocationCard store={searchParams.store}/>
             </div>
         </div>
-        <FormNewLocation/>
+        <div className="w-6/12">
+            <FormNewLocation store={searchParams?.store}/>
+            <DeleteLocationButton store={searchParams.store}/>
+
+        </div>
     </div>
 }
 export default LocationsPage;
