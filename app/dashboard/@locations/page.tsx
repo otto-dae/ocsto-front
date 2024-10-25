@@ -1,7 +1,5 @@
-import { API_URL, TOKEN_NAME } from "@/constants";
+import { API_URL } from "@/constants";
 import { Location } from "c:/Users/Koto/ocsto-front/entities"
-import axios from "axios";
-import { cookies } from "next/headers";
 import SelectLocation from "./_components/SelectLocation";
 import LocationCard from "./_components/locationCard";
 import FormNewLocation from "./_components/FormNewLocation";
@@ -10,25 +8,28 @@ import { AuthHeaders } from "@/helpers/authHelper";
 
 const LocationsPage = async ({searchParams,}: {searchParams: { [key: string]: string | string[] | undefined };})=> {
 
-    let {data} = await axios.get<Location[]>
+    const response = await fetch
     (`${API_URL}/locations`,
         
         {
         headers:{
             ... AuthHeaders()
         },
+        next:{
+            tags:["dashboard:locations"]
+        }
 
-    },)
+    },
+);
 
-    data.push()
-    
+    let data: Location[] = await response.json();
+
     data = [    {
         locationId: 0,
         locationName: "No name",
         locationLatLng: [0,0],
-        locationAddress: "No address"},
+        locationAddress: "No address"},    
         ... data
-    
 
     ]
 

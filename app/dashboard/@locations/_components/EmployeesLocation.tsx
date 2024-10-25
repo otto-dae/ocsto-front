@@ -1,19 +1,25 @@
-import { API_URL, TOKEN_NAME } from "@/constants";
-import { Employee, Location } from "@/entities";
-import { Card, CardHeader } from "@nextui-org/react";
-import axios from "axios";
-import { cookies, headers } from "next/headers";
+import {API_URL} from "@/constants";
+import {Employee} from "@/entities";
+import {AuthHeaders} from "@/helpers/authHelper";
+import {Card, CardHeader} from "@nextui-org/react";
 
 export default async function EmployeeLocation ({store} : {store: string | string[] | undefined}){
 
-    const token = cookies().get(TOKEN_NAME)?.value
-    const {data} = await axios.get<Employee[]>(`${API_URL}/employees/${store}`, {
+    const response = await fetch(`${API_URL}/employees/${store}`, {
+        
+        method: "GET",
         headers:{
-            Authorization:  `Bearer ${token}`
+            ...AuthHeaders()
+        },
+        next: {
+            tags: ["dashboard:locations", "dashboard:locations:employees"]
         }
+        
     });
 
-    return  data.map((employee)=>{
+    const data: Employee[] = await response.json();
+
+    return  data?.map((employee: Employee)=>{
         const fullName = employee.employeeName + " " + employee.employeeLastName;
             return <Card className="mx-10">
                  <p className="w-full"> Nombre: <b> {fullName}</b></p>

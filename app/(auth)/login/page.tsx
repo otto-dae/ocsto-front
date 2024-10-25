@@ -1,8 +1,7 @@
 'use client';
 
 import { API_URL } from "@/constants";
-import { Button, Input, Spinner } from "@nextui-org/react";
-import axios from "axios";
+import { Button, Input } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,7 +10,7 @@ export default function  LogInPage() {
 
     const [sumbitting, setSumbitting] = useState(false);
     const router = useRouter();
-    const handleSumbit = async (e: React.FormEvent) =>{
+    const handleSumbit = async (e: any) =>{
         setSumbitting(true);
         e.preventDefault()
         const formData = new FormData(e.target);
@@ -19,10 +18,10 @@ export default function  LogInPage() {
         authData.userEmail = formData.get("userEmail");
         authData.userPassword = formData.get("userPassword");
         try{
-            const response = await axios.post(`${API_URL}/aut/login`, {
-                ... authData
-            }, {
-                withCredentials: true
+            const response = await fetch(`${API_URL}/aut/login`, {
+                body: JSON.stringify(authData),
+                method:"POST",
+                credentials: 'include'
             });
             if(response.status === 201) router.push('/dashboard')
             setSumbitting(false);

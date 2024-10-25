@@ -1,24 +1,33 @@
 import { createLocation } from "@/actions/locations/create";
-import { API_URL, TOKEN_NAME } from "@/constants";
+import { API_URL } from "@/constants";
 import { Input } from "@nextui-org/react";
-import axios from "axios";
-import { cookies } from "next/headers";
 import SelectManager from "./selectManager";
+import { AuthHeaders } from "@/helpers/authHelper";
+import { Location, Manager } from "@/entities";
 
  export default async function FormNewLocation({store}: {store: string| string[] | undefined}){
 
     if(store) return null
-    const token = cookies().get(TOKEN_NAME)?.value
-    const responseManagers = await axios.get(`${API_URL}/managers`,{
+    const responseManagers = await fetch(`${API_URL}/managers`,{
         headers:{
-            Authorization: `Bearer ${token}`
+            ...AuthHeaders()
+        },
+        next:{
+            tags: ["dashboard:managers"]
         }
     })
-    const responseLocations = await axios.get(`${API_URL}/locations`,{
+    const dataManager: Manager[] = await responseManagers.json();
+    const responseLocations = await fetch(`${API_URL}/locations`,{
         headers:{
-            Authorization: `Bearer ${token}`
+            ...AuthHeaders()
+        },
+        next:{
+            tags: ["dashboard:locations"]
         }
     })
+    const dataLocation: Location[] = await responseLocations.json();
+
+
 
     return (
         <form action={createLocation} className="bg-orange-400 py-2 px-4 flex flex-col gap-6 w-full">
@@ -27,7 +36,7 @@ import SelectManager from "./selectManager";
             <Input label="Store Address" name="locationAddress" />
             <Input label="Store latitud" name="locationLat" />
             <Input label="Store longitud" name="locationLng" />
-            <SelectManager managers={responseManagers.data} locations={responseLocations.data}/>
+            <SelectManager managers={dataManager} locations={dataLocation}/>
             <button type="submit">upload</button>
         </form>
     )

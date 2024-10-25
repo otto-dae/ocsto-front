@@ -1,17 +1,16 @@
 "user server";
 
-import { API_URL, TOKEN_NAME } from "@/constants";
-import axios from "axios";
-import { cookies, headers } from "next/headers";
-import { useRouter } from "next/navigation";
+import { API_URL} from "@/constants";
+import { AuthHeaders } from "@/helpers/authHelper";
 
 export default async function DeleteLocation(formData: FormData){
 
-    const storeToDelete = formData.get("deleteValue");
-    const token = cookies().get(TOKEN_NAME)?.value
-    axios.delete(`${API_URL}/locations/${storeToDelete}`,{
+    const storeToDelete = formData.get("deleteValue"); 
+    fetch(`${API_URL}/locations/${storeToDelete}`,{
+
+        method:"DELETE",
         headers:{
-            Authorization:`Bearer ${token}`
+             ... AuthHeaders(),
         }
     })
 
