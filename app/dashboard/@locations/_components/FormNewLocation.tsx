@@ -32,10 +32,10 @@ import { Location, Manager } from "@/entities";
     return (
         <form action={createLocation} className="bg-orange-400 py-2 px-4 flex flex-col gap-6 w-full">
             <h1 className="text-xl text-white text-center"></h1>
-            <Input label="Store Name" name="locatioName" />
-            <Input label="Store Address" name="locationAddress" />
-            <Input label="Store latitud" name="locationLat" />
-            <Input label="Store longitud" name="locationLng" />
+            <Input required={true} label="Store Name" name="locatioName" />
+            <Input required={true} label="Store Address" name="locationAddress" />
+            <Input required={true} label="Store latitud" name="locationLat" />
+            <Input required={true} label="Store longitud" name="locationLng" />
             <SelectManager managers={dataManager} locations={dataLocation}/>
             <button type="submit">upload</button>
         </form>

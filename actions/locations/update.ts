@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
-export async function createLocation(formData: FormData){
+export async function updateLocation(store:string,  formData: FormData){
  
     let location: any = {};
     let locationLatLng = [0, 0]
@@ -28,11 +28,11 @@ export async function createLocation(formData: FormData){
         }
     }
     location.locationLatLng = locationLatLng;
-    const response =  await fetch(`${API_URL}/locations`,{
+    const response =  await fetch(`${API_URL}/locations/${store}`,{
         
         body : JSON.stringify(location),
         
-        method: "POST",
+        method: "PATCH",
         headers: {
             'content-type': 'application/json',
             ...AuthHeaders()
@@ -42,6 +42,7 @@ export async function createLocation(formData: FormData){
     const data: Location = await response.json();
     if(response.status === 201) {
         revalidateTag("dashboard:locations")
+        revalidateTag(`dashboard:locations:${store}`)
         redirect(`/dashboard?store=${data.locationId}`)
     }   
 

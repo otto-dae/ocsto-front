@@ -2,6 +2,8 @@
 
 import { API_URL} from "@/constants";
 import { AuthHeaders } from "@/helpers/authHelper";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 export default async function DeleteLocation(formData: FormData){
 
@@ -14,6 +16,6 @@ export default async function DeleteLocation(formData: FormData){
         }
     })
 
-    
-
+    revalidateTag("dashboard;locations");
+    redirect("/dashboard");
 }
