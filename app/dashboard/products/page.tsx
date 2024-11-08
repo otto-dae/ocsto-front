@@ -1,26 +1,34 @@
-import { API_URL } from "@/constants"
-import { Product } from "@/entities";
-import { AuthHeaders } from "@/helpers/authHelper"
-import FilteredCards from "./_components/FilteredCards";
+import { API_URL } from "@/constants";
+import { AuthHeaders } from "@/helpers/authHelper";
+import { Button, Input } from "@nextui-org/react";
+import { LuDollarSign } from "react-icons/lu";
+import SelectProvider from "./_components/SelectProvider";
+import CreateProduct from "@/actions/products/create";
 
 const ProductsPage = async () => {
-    
-    const response = await fetch(`${API_URL}/products`,{
+
+    const responseProviders = await fetch(`${API_URL}/providers`,{
         headers:{
             ...AuthHeaders()
-        },
-        next:{
-            tags:[`dashboard:products`]
         }
     });
-    const products: Product[] = await response.json();
-    return (
-        <div className="h-[90vh] w-full">
-            <div className="w-6/12">
-                <FilteredCards products={products}/>
-            </div>
-        </div>
-    )
-}
 
-export default ProductsPage
+    const providers = await responseProviders.json();
+    return (
+        <form action={CreateProduct} className="max-full flex flex-col px-40 justify-center pt-10 gap=6">
+           <h1 className="text-2xl font-bold">Crear Producto</h1>
+            <Input label="Nombre" name="productName"/>
+            <Input label="Precio" endContent={<LuDollarSign size="20"/>} name="productPrice"/>
+            <Input label="Num. de sellos" name="countSeal"/>
+
+            <SelectProvider providers={providers} />
+       
+            <Button color="primary" type="submit">
+                confirmar
+            </Button>
+
+        </form>
+    );
+};
+
+export default ProductsPage;
