@@ -8,10 +8,17 @@ import { redirect } from "next/navigation";
 export default async function UpdateProduct(productId: string, formData: FormData) {
     let product:any = {}
     for (const key of formData.keys()){ //wtf
-        product[key] = formData.get(key);
+
+        if(!key.includes("ACTION")){
+            product[key] = formData.get(key);
+        }
     }
 
-    const response = await fetch (`${API_URL}/managers/${productId}`,{
+    product.price = +product.price;
+    product.countSeal = +product.countSeal;
+
+
+    const response = await fetch (`${API_URL}/products/${productId}`,{
         method: "PATCH",
         body: JSON.stringify(product),
         headers: {
@@ -23,6 +30,5 @@ export default async function UpdateProduct(productId: string, formData: FormDat
     if(response.status === 200) {
         revalidateTag("dashboard:products")
         revalidateTag(`dashboard:products:${productId}`);
-        redirect("/dashboard/products")
     }
 }

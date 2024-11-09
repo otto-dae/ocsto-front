@@ -10,6 +10,7 @@ export default function FilteredCards({products, providers}: {products : Product
     
     const [filtered, setFiltered] = useState<string>("");
     const [provider, setProvider] = useState<string>()
+    const [show, setShow] = useState(false)
     const [productsList, setProductsList] = useState<Product[]>(products)
     
     useEffect(() => {
@@ -22,10 +23,13 @@ export default function FilteredCards({products, providers}: {products : Product
             else return false
         })
         setProductsList(filteredProducts);
-    }, [filtered, provider])
+        setShow(true);
+    }, [filtered, provider, products])
+
+
     
     return(
-        <div className="max-h-[90vh] min-h-[90vh] overflow-y-auto flex flex-col gap-8 border-r-orange-200 px10 border-r-2 pt-10">
+        <div className="max-h-[90vh] min-h-[90vh] overflow-y-auto flex flex-col gap-4 border-r-orange-200 px10 border-r-2 pt-10">
            
            <Select onChange={(e) => {
                 setProvider(e.target.value)
@@ -38,7 +42,7 @@ export default function FilteredCards({products, providers}: {products : Product
 
             <Input onChange={(e)=>{setFiltered(e.target.value)}}/>
             
-            {productsList.map((product)=>{
+            {show && productsList.map((product)=>{
                 return(
                     <Link key={product.productId} href={{pathname: `dashboard/products/${product.productId}`}}>
                         <ProductCard product={product}/>

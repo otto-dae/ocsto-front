@@ -15,8 +15,9 @@ const ProductsPage = async () => {
 
     const providers = await responseProviders.json();
     return (
-        <form action={CreateProduct} className="max-full flex flex-col px-40 justify-center pt-10 gap=6">
-           <h1 className="text-2xl font-bold">Crear Producto</h1>
+        <form action={CreateProduct} className=" px-10 justify-center pt-10 gap=6">
+        <div className="flex flex-col px-10">
+        <h1 className="text-2xl font-bold">Crear Producto</h1>
             <Input label="Nombre" name="productName"/>
             <Input label="Precio" endContent={<LuDollarSign size="20"/>} name="productPrice"/>
             <Input label="Num. de sellos" name="countSeal"/>
@@ -26,7 +27,7 @@ const ProductsPage = async () => {
             <Button color="primary" type="submit">
                 confirmar
             </Button>
-
+        </div>
         </form>
     );
 };
