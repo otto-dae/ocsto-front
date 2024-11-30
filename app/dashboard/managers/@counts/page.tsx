@@ -18,8 +18,8 @@ export default async function CountPage(){
     let max = 0;
     let salary = 0;
     managers.forEach((manager: Manager) =>{
-        if(manager.managerFullSalary > max) max = manager.managerFullSalary
-        salary += manager.managerFullSalary
+        if(manager.managerSalary > max) max = manager.managerSalary
+        salary += manager.managerSalary
     })
     return(
         <Card className="w-fit px-2 py-4 text-center">
