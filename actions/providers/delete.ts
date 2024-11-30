@@ -1,11 +1,11 @@
 "use server"
 
 import { API_URL } from "@/constants";
-import { AuthHeaders } from "@/helpers/authHelper";
+import { AuthHeaders } from "@/helpers/authHeaders";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-export default async function DeleteProvider(providerId: string, formData: FormData) {
+export default async function deleteProvider(providerId: string, formData: FormData) {
 
     const response = await fetch (`${API_URL}/managers/${providerId}`,{
         method: "DELETE",
@@ -14,8 +14,8 @@ export default async function DeleteProvider(providerId: string, formData: FormD
         }
     })
 
-   if(response.status === 200) {revalidateTag("dashboard:providers")
-    redirect("/dashboard/providers")
-
+    if (response.status === 200) {
+        revalidateTag("dashboard:providers")
+        redirect("/dashboard/providers")
     }
 }

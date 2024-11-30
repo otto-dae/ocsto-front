@@ -1,9 +1,9 @@
 "use server";
 import { API_URL } from "@/constants";
-import { AuthHeaders } from "@/helpers/authHelper";
+import { AuthHeaders } from "@/helpers/authHeaders";
 import { revalidateTag } from "next/cache";
 
-export default async function UpdateProvider(providerId: string, formData: FormData) {
+export default async function updateProvider(providerId: string, formData: FormData) {
     let provider:any = {}
     for (const key of formData.keys()){ //wtf
         provider[key] = formData.get(key);

@@ -1,9 +1,9 @@
 import { createLocation } from "@/actions/locations/create";
 import { API_URL } from "@/constants";
-import { Input } from "@nextui-org/react";
-import SelectManager from "./selectManager";
-import { AuthHeaders } from "@/helpers/authHelper";
+import { Button, Input } from "@nextui-org/react";
+import { AuthHeaders } from "@/helpers/authHeaders";
 import { Location, Manager } from "@/entities";
+import SelectManager from "./selectManager";
 
  export default async function FormNewLocation({store}: {store: string| string[] | undefined}){
 
@@ -16,7 +16,7 @@ import { Location, Manager } from "@/entities";
             tags: ["dashboard:managers"]
         }
     })
-    const dataManager: Manager[] = await responseManagers.json();
+    const dataManagers: Manager[] = await responseManagers.json();
     const responseLocations = await fetch(`${API_URL}/locations`,{
         headers:{
             ...AuthHeaders()
@@ -25,19 +25,17 @@ import { Location, Manager } from "@/entities";
             tags: ["dashboard:locations"]
         }
     })
-    const dataLocation: Location[] = await responseLocations.json();
-
-
+    const dataLocations: Location[] = await responseLocations.json();
 
     return (
-        <form action={createLocation} className="bg-orange-400 py-2 px-4 flex flex-col gap-6 w-full">
-            <h1 className="text-xl text-white text-center"></h1>
-            <Input required={true} label="Store Name" name="locatioName" />
-            <Input required={true} label="Store Address" name="locationAddress" />
-            <Input required={true} label="Store latitud" name="locationLat" />
-            <Input required={true} label="Store longitud" name="locationLng" />
-            <SelectManager managers={dataManager} locations={dataLocation}/>
-            <button type="submit">upload</button>
-        </form>
+        <form action={createLocation} className="bg-orange-400 py-2 px-4 flex flex-col gap-6 w-full rounded-lg">
+        <h1 className="text-3xl text-white text-center"> Crear Tienda </h1>
+        <Input required={true} label="Nombre" placeholder="Ocso Jurikiya" name="locationName" />
+        <Input required={true} label="Dirección" placeholder="Av De La Luz S/N" name="locationAddress" />
+        <Input required={true} label="Latitud" placeholder="-120" name="locationLat" />
+        <Input required={true} label="Longitud" placeholder="20" name="locationLng" />
+        <SelectManager managers={dataManagers} locations={dataLocations} />
+        <Button type="submit" color="primary"> Subir </Button>
+      </form>
     )
  }

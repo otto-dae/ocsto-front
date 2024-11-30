@@ -1,57 +1,60 @@
 'use client';
 
-import { API_URL } from "@/constants";
-import { Button, Input } from "@nextui-org/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Input, Button } from "@nextui-org/react";
+import { API_URL } from "@/constants";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function  LogInPage() {
-
-    const [sumbitting, setSumbitting] = useState(false);
-    const router = useRouter();
-    const handleSumbit = async (e: any) =>{
-        setSumbitting(true);
-        e.preventDefault()
-        const formData = new FormData(e.target);
-        let authData: any = {}
-        authData.userEmail = formData.get("userEmail");
-        authData.userPassword = formData.get("userPassword");
-        try{
-            const response = await fetch(`${API_URL}/aut/login`, {
-                body: JSON.stringify(authData),
-                method:"POST",
-                credentials: 'include'
-            });
-            if(response.status === 201) router.push('/dashboard')
-            setSumbitting(false);
-        } catch(e){
-            setSumbitting(false);
-        }
-
-        return;
+    const [submitting, setSubmitting] = useState(false)
+    const router = useRouter()
+    const handleSubmit = async (e : any) => {
+      setSubmitting(true);
+      e.preventDefault()
+      const formData = new FormData(e.target);
+      let authData: any = {}
+      authData.userEmail = formData.get("userEmail");
+      authData.userPassword = formData.get("userPassword");
+      try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+          method: "POST",
+          body: JSON.stringify(authData),
+          headers: {
+            "content-type": 'application/json'
+          },
+          cache: "no-cache",
+          credentials: 'include',
+        });
+        if (response.status === 201) router.push('/dashboard');
+        setSubmitting(false)
+      } catch (e) {
+        setSubmitting(false);
+      }
+      return;
     }
 
     return (
-        <form className="bg-orange-500 px-10 py-2 rounded-md" onSubmit={handleSumbit}>
-            <p className="text-2xl my-4">Log In</p>
-            
-            
-            
-            <div className="flex flex-col gap-2 my-4 items-center">
-            <Input label="Email" name="userEmail" type="email" isRequired={true} size="sm"/>
-            <Input label="Password" name="userPassword" type="password" isRequired={true} size="sm"/>
-            </div>
-
-            <div className="flex flex-col items-center gap-2">
-            <Button color="primary" type="submit" disabled={sumbitting}> 
-                
-                {sumbitting ? "Sending" : "Log in"}
-           
-            </Button>
-            <p>You dont have an account?<Link href={"/signup"}>SignUp</Link></p>
-            </div>
-       </form>
+<form className="bg-orange-500 px-10 py-2 rounded-md" onSubmit={handleSubmit}>
+      <p className="text-2xl my-4 text-white">
+        Iniciar sesion
+      </p>
+      <div className="flex flex-col gap-2 my-4 items-center">
+        <Input label="Email" name="userEmail" type="email" isRequired={true} size="sm" />
+        <Input label="Contraseña" name="userPassword" type="password" isRequired={true} size="sm" />
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <Button
+          color="primary"
+          type="submit"
+          disabled={submitting}>
+        {submitting ? "Enviando..." : "Iniciar Sesión"}
+        </Button>
+        <p className="text-white">
+          ¿No tienes cuenta? <Link href="/signup" className="text-red-600 underline">Registrate</Link>
+        </p>
+      </div>
+    </form>
 
     
     )

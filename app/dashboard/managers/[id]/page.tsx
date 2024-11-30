@@ -1,6 +1,6 @@
 import { API_URL } from "@/constants";
-import { AuthHeaders } from "@/helpers/authHelper";
-import ManagerCard2 from "./_components/ManagerCard";
+import { AuthHeaders } from "@/helpers/authHeaders";
+import ManagerCard from "./_components/ManagerCard";
 import DeleteManagerButton from "./_components/DeleteManagerButton";
 import FormUpdateManager from "./_components/FormUpdateManager";
 import UpdateManager from "./_components/UpdateManager";
@@ -24,14 +24,13 @@ params,
    
     return(
         <div className="flex flex-col gap-10 flex-grow-0 items-center justify-center">
-            <ManagerCard2 manager={data}/>
-            <div className="bg-white shadowm-medium rounded-md px-10 py-2 flex flex-row">
-            <UpdateManager>
-                <FormUpdateManager manager={data}></FormUpdateManager>
-            </UpdateManager>
-            <DeleteManagerButton managerId={data.managerId}/>
-
-            </div>
+        <ManagerCard manager={data} />
+        <div className="bg-white shadow-medium rounded-md px-10 py-2 flex flex-row flex-grow-0 gap-2">
+          <UpdateManager>
+            <FormUpdateManager manager={data} />
+          </UpdateManager>
+          <DeleteManagerButton managerId={data.managerId} />
         </div>
+      </div>
     )
 }

@@ -1,13 +1,16 @@
-import DeleteManager from "@/actions/managers/delete"
-import { Button } from "@nextui-org/react";
+import deleteManager from "@/actions/managers/delete";
 import { LuTrash } from "react-icons/lu";
+import { Button } from "@nextui-org/react";
 
-export default function DeleteManagerButton({managerId}: {managerId : string}){
-    
-    const DeleteManagerById = DeleteManager.bind(null, managerId);
-    return(
-        <form action={DeleteManagerById}>
-            <Button type="submit" color="danger"><LuTrash size="20"/></Button>
-        </form>
-    )
+export default function DeleteManagerButton({managerId,}: {managerId: string;}) {
+
+  const deleteByManagerId = deleteManager.bind(null, managerId);
+  
+  return (
+    <form action={deleteByManagerId}>
+      <Button color="danger" type="submit">
+        <LuTrash size="20" />
+      </Button>
+    </form>
+  );
 }

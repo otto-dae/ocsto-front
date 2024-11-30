@@ -1,10 +1,10 @@
 "use server"
 
 import { API_URL } from "@/constants";
-import { AuthHeaders } from "@/helpers/authHelper";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { AuthHeaders } from "@/helpers/authHeaders";
+import { revalidateTag } from "next/cache";
 
-export default async function CreateProvider(formData: FormData) {
+export default async function createProvider(formData: FormData) {
     let provider:any = {}
     for (const key of formData.keys()){ //wtf
         provider[key] = formData.get(key);
@@ -17,12 +17,7 @@ export default async function CreateProvider(formData: FormData) {
             ...AuthHeaders(),
             'content-type': 'application/json'
         },
-        next:{
-            tags:["dashboard:providers"]
-        }
-    });
-
-
+    })
 
     if(response.status === 201) revalidateTag("dashboard:providers")
 }

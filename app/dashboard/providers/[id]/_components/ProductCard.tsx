@@ -9,7 +9,6 @@ export default function ProductCard({product} : {product : Product}){
             <CardBody>
                 <p>Nombre producto: <b>{product.productName}</b></p>
                 <p>Precio producto: <b>{product.price}</b></p>
-
             </CardBody>
         </Card>
     )

@@ -1,11 +1,11 @@
 "use server"
 
 import { API_URL } from "@/constants";
-import { AuthHeaders } from "@/helpers/authHelper";
+import { AuthHeaders } from "@/helpers/authHeaders";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-export default async function UpdateManger(managerId: string, formData: FormData) {
+export default async function updateManger(managerId: string, formData: FormData) {
     let manager:any = {}
     for (const key of formData.keys()){ //wtf
         manager[key] = formData.get(key);
@@ -20,7 +20,7 @@ export default async function UpdateManger(managerId: string, formData: FormData
         headers: {
             ...AuthHeaders(),
             'content-type': "application/json"
-        }
+        },
     })
 
     if(response.status === 200) {

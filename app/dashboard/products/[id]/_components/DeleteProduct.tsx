@@ -7,8 +7,10 @@ export default function DeleteProduct({productId} : {productId : string}) {
     const deleteProductById = deleteProduct.bind(null, productId)
 
     return (
-    <form action={deleteProductById}>
-        <Button type="submit" color="danger" ><LuTrash size="20"/></Button>
+      <form className="flex w-full" action={deleteProductById}>
+      <Button type="submit" color="danger">
+        <LuTrash size="20" />
+      </Button>
     </form>
   );
 }

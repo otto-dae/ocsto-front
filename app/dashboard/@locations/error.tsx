@@ -1,3 +1,4 @@
+'use client'
 export default function ErrorCount(){
-    return "Error on loading";   
+    return 'Error al cargar tiendas';   
 }

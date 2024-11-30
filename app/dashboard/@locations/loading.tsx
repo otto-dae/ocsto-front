@@ -1,3 +1,3 @@
 export default function LoadingContent(){
-    return "Loading";   
+    return "Cargando tiendas";   
 }

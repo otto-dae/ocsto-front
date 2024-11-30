@@ -1,6 +1,6 @@
 import { API_URL } from "@/constants";
-import { AuthHeaders } from "@/helpers/authHelper";
-import ProviderCard from "./_components/ProviderCard";
+import { AuthHeaders } from "@/helpers/authHeaders";
+import ProviderCard from "../_components/ProviderCard";
 import { Product, Provider } from "@/entities";
 import ProductCard from "./_components/ProductCard";
 import Link from "next/link";

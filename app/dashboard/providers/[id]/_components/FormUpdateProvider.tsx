@@ -1,4 +1,4 @@
-import UpdateProvider from "@/actions/providers/Update";
+import UpdateProvider from "@/actions/providers/update";
 import { Provider } from "@/entities";
 import { Button, Input } from "@nextui-org/react";
 import DeleteProviderBody from "./DeleteProviderBody";

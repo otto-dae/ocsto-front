@@ -8,7 +8,7 @@ export default function FormCreateProvider(){
         <Input placeholder="Nombre" label="Nombre proveedor" name="providerName"/>
         <Input placeholder="Email" label="Email proveedor" name="providerEmail"/>
         <Input placeholder="Numero telefono" label="PhoneNumber proveedor" name="providerPhoneNumber"/>
-        <Button type="submit">Crear provider</Button>
+        <Button type="submit"> Crear provider </Button>
         </form>
     )
 }
