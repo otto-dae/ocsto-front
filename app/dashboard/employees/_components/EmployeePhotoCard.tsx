@@ -1,5 +1,5 @@
 import { Employee } from "@/entities";
-import { Button, Card, CardFooter, CardHeader, Divider, Image } from "@nextui-org/react";
+import { Button, Card, CardFooter, CardHeader, Divider, Image,} from "@nextui-org/react";
 import Link from "next/link";
 
 export default function EmployeePhotoCard({
@@ -17,7 +17,6 @@ export default function EmployeePhotoCard({
       <Divider />
       <Image
         src={employee.employeePhoto}
-        className="z-0 object-cover"
         classNames={{ img: "size-72" }}
       />
       <CardFooter className="absolute bottom-0 py-2 h-14">
